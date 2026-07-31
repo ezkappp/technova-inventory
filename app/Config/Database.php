@@ -65,19 +65,25 @@ class Database extends Config
     {
         parent::__construct();
 
-        // Override koneksi pakai environment variable kalau ada (misal saat jalan di Docker).
-        // Kalau gak ada (misal jalan lokal tanpa Docker), fallback ke nilai default di atas.
+        // Override pakai environment variable kalau ada (jalan di Docker).
+        // Kalau gak ada (jalan lokal tanpa Docker), fallback ke nilai default di atas.
         if (getenv('DB_HOST')) {
             $this->default['hostname'] = getenv('DB_HOST');
+            $this->tests['hostname']   = getenv('DB_HOST');
         }
         if (getenv('DB_USER')) {
             $this->default['username'] = getenv('DB_USER');
+            $this->tests['username']   = getenv('DB_USER');
         }
         if (getenv('DB_PASS') !== false) {
             $this->default['password'] = getenv('DB_PASS');
+            $this->tests['password']   = getenv('DB_PASS');
         }
         if (getenv('DB_NAME')) {
             $this->default['database'] = getenv('DB_NAME');
+        }
+        if (getenv('DB_TEST_NAME')) {
+            $this->tests['database'] = getenv('DB_TEST_NAME');
         }
 
         if (ENVIRONMENT === 'testing') {

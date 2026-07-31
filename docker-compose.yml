@@ -12,6 +12,7 @@ services:
       - DB_USER=root
       - DB_PASS=rootpassword
       - DB_NAME=technova_inventory
+      - DB_TEST_NAME=technova_inventory_test
       - CI_ENVIRONMENT=production
     volumes:
       - ./writable:/var/www/html/writable

@@ -12,7 +12,7 @@ WORKDIR /var/www/html
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader
 
 RUN chown -R www-data:www-data /var/www/html/writable
 
