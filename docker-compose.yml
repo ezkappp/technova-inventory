@@ -14,8 +14,6 @@ services:
       - DB_NAME=technova_inventory
       - DB_TEST_NAME=technova_inventory_test
       - CI_ENVIRONMENT=production
-    volumes:
-      - ./writable:/var/www/html/writable
     networks:
       - technova-net
 
