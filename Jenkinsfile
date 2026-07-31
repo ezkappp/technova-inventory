@@ -22,6 +22,7 @@ pipeline {
 
         stage('Prepare Test Database') {
             steps {
+                sh 'sleep 15'
                 sh 'docker compose exec -T db mysql -u root -prootpassword -e "CREATE DATABASE IF NOT EXISTS technova_inventory_test;"'
             }
         }
