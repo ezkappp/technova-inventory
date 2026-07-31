@@ -28,7 +28,7 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                sh 'docker compose exec -T app vendor/bin/phpunit'
+                sh 'docker compose exec -T app vendor/bin/phpunit --no-coverage'
             }
         }
     }
