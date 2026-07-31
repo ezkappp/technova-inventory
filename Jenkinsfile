@@ -8,6 +8,12 @@ pipeline {
             }
         }
 
+        stage('Cleanup Previous Containers') {
+            steps {
+                sh 'docker compose down || true'
+            }
+        }
+
         stage('Build & Start Containers') {
             steps {
                 sh 'docker compose up -d --build'
