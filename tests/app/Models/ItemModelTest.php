@@ -10,6 +10,7 @@ class ItemModelTest extends CIUnitTestCase
     use DatabaseTestTrait;
 
     protected $migrate = true;
+    protected $namespace = null;
 
     public function testInsertAndFindAllItems()
     {

@@ -12,6 +12,7 @@ class ItemsControllerTest extends CIUnitTestCase
     use ControllerTestTrait, DatabaseTestTrait;
 
     protected $migrate = true;
+    protected $namespace = null;
 
     public function testIndexShowsItems()
     {
