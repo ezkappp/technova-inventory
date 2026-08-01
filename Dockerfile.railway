@@ -1,0 +1,28 @@
+FROM php:8.2-fpm
+
+# Install dependency sistem + extension PHP + nginx + supervisor
+RUN apt-get update && apt-get install -y \
+    libpng-dev libonig-dev libxml2-dev libicu-dev unzip git curl \
+    nginx supervisor gettext-base \
+    && docker-php-ext-install mysqli intl mbstring gd \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Salin composer dari image resmi composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+WORKDIR /var/www/html
+
+COPY . .
+
+RUN composer install --optimize-autoloader
+
+RUN chown -R www-data:www-data /var/www/html/writable
+
+# Config nginx + supervisor + start script
+COPY docker/nginx-railway.conf.template /etc/nginx/templates/default.conf.template
+COPY docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/start.sh /start.sh
+RUN chmod +x /start.sh
+
+# Railway inject $PORT secara dinamis, gak perlu EXPOSE spesifik
+CMD ["/start.sh"]

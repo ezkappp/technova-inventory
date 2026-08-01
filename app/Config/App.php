@@ -199,4 +199,18 @@ class App extends BaseConfig
      * @see http://www.w3.org/TR/CSP/
      */
     public bool $CSPEnabled = false;
+
+    /**
+     * Override baseURL lewat environment variable APP_BASE_URL kalau ada
+     * (dipakai pas deploy ke Railway). Kalau gak ada, fallback ke nilai
+     * default di atas — jadi tetap aman dipakai lokal/Docker Compose.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        if (getenv('APP_BASE_URL')) {
+            $this->baseURL = getenv('APP_BASE_URL');
+        }
+    }
 }
